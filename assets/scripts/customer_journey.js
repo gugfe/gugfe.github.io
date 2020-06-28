@@ -174,7 +174,7 @@ function createCustomerJourney(clientList, journeyData, dashboardWidth) {
         .y1(d => y(d.freemium_pct + d.trial_pct + d.premium_pct));
 
     // Display the 3 areas
-    displayArea(journeyData, areaGenerator3, area, "white", null);
+    displayArea(journeyData, areaGenerator3, area, "white", initArea);
     displayArea(journeyData, areaGenerator2, area, "#FFECAF", initArea);
     displayArea(journeyData, areaGenerator, area, "#FCC205", initArea);
     focus.raise();
