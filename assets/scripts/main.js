@@ -4,7 +4,7 @@
 (function (d3) {
 
   /******************** DATA LOADING FROM THE CSV ********************/
-  d3.csv("INF8808-Projet/data/data_project.csv").then(function(d) {
+  d3.csv("data/data_project.csv").then(function(d) {
 
     /******************** PREPROCESSING ********************/
     // Get the client list from the .csv data
