@@ -148,20 +148,21 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
             d3.select(this).transition().duration(100).attr('r',12)
             detailedChart.append("text")
             .attr("id", "tooltip")
-            .attr("x", d3.select(this).attr('cx'))
-            .attr("y", d3.select(this).attr('cy') - 20)
-            .attr("text-anchor", function(){
-                if(d3.mouse(this)[0] >= confidenceRateChart.attr('width')/2){
-                    return 'end'
-                }else{
-                    return 'start'
-                }
-            })
+            .attr("x", rightChartWidth) // d3.select(this).attr('cx'))
+            .attr("y", 100) //d3.select(this).attr('cy') - 20)
+            .attr("text-anchor", "end")
+            // .attr("text-anchor", function(){
+            //     if(d3.mouse(this)[0] >= confidenceRateChart.attr('width')/2){
+            //         return 'end'
+            //     }else{
+            //         return 'start'
+            //     }
+            // })
             .attr("font-family", "sans-serif")
             .attr("font-size", "11px")
             .attr("font-weight", "bold")
             .attr("fill", "black")
-            .text("rate = " + formatPercent(d.rate) + ", lb = " + formatPercent(d.LB) + ",  ub = " + formatPercent(d.UB));
+            .text("Estimated rate = " + formatPercent(d.rate) + " / Bounds of the 80% CI: [" + formatPercent(d.LB) + " ; " + formatPercent(d.UB) + "]");
             })
         .on("mouseout", function() {
             d3.select("#tooltip").remove();
@@ -261,21 +262,22 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
             d3.select(this).transition().duration(100).attr('r',12)
             confidenceRateChart.append("text")
             .attr("id", "tooltip")
-            .attr('class', 'tooltip')
-            .attr("x", d3.select(this).attr('cx'))
-            .attr("y", d3.select(this).attr('cy')-20)
-            .attr("text-anchor", function(){
-                    if(d3.mouse(this)[0] >= confidenceRateChart.attr('width')/2){
-                        return 'end'
-                    }else{
-                        return 'start'
-                    }
-                })
+            .attr('class', 'd3-tip')
+            .attr("x", leftChartWidth) //d3.select(this).attr('cx'))
+            .attr("y", 100) //d3.select(this).attr('cy')-20)
+            .attr("text-anchor", "end")
+            // .attr("text-anchor", function(){
+            //         if(d3.mouse(this)[0] >= confidenceRateChart.attr('width')/2){
+            //             return 'end'
+            //         }else{
+            //             return 'start'
+            //         }
+            //     })
             .attr("font-family", "sans-serif")
             .attr("font-size", "11px")
             .attr("font-weight", "bold")
             .attr("fill", "black")
-            .text("rate = " + formatPercent(d.rate) + ", lb = " + formatPercent(d.LB) + ",  ub = " + formatPercent(d.UB));
+            .text("Estimated rate = " + formatPercent(d.rate) + " / Bounds of the 80% CI: [" + formatPercent(d.LB) + " ; " + formatPercent(d.UB) + "]");
             })
         .on("mouseout", function() {
             d3.select("#tooltip").remove();
