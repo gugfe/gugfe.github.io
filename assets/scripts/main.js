@@ -7,23 +7,26 @@
   d3.csv("data/data_project.csv").then(function(d) {
 
     /******************** PREPROCESSING ********************/
+    var minDays = 60;
+    var journeyDays = 90;
+
     // Get the client list from the .csv data
-    var cList = getClientList(d);
+    var cList = getClientList(d, minDays);
 
     // Get the data needed for the analysis of the conversion rates
-    [channelD, countryD, sizeD] = getConversionRateData(cList, 60);
+    [channelD, countryD, sizeD] = getConversionRateData(cList, minDays);
 
     // Get the data needed for the analysis of the conversion rates - 2D
     var countrychannelD;
     var countrysizeD;
     var channelsizeD;
-    [countrychannelD, countrysizeD, channelsizeD] = getConversionRateData2D(cList, 60)
+    [countrychannelD, countrysizeD, channelsizeD] = getConversionRateData2D(cList, minDays)
 
     // Get the data needed for the trial analysis 
-    var trialD = getTrialData(cList, 60)
+    var trialD = getTrialData(cList, minDays)
 
     // Get the data needed for the journey analysis 
-    var journeyD = getJourneyData(cList, 90)
+    var journeyD = getJourneyData(cList, journeyDays)
 
     /******************** CREATION OF THE OVERVIEW AND TABS ********************/
     var dashboardWidth = 1200

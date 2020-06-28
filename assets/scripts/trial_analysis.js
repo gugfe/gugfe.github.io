@@ -9,7 +9,7 @@ function createTrialAnalysis (trialData, countryData, dashboardWidth){
   var margin = {top: 80, right: 30, bottom: 40, left: 30};
 
   // Dimensions of the chart
-  var containerHeight = 400 ;
+  var containerHeight = 350 ;
   var fullcontainerWidth = dashboardWidth - margin.left - margin.right
   var smallcontainerWidth = (1/4)*fullcontainerWidth;
   var bigcontainerWidth = (3/4)*fullcontainerWidth;
@@ -53,7 +53,7 @@ function createTrialAnalysis (trialData, countryData, dashboardWidth){
   var trialGraph = d3.select('#trialGraph'); 
 
   // Fill containers
-  var globalConvPct = d3.sum(countryData, d => d.c)/d3.sum(countryData, d => d.n)*2;
+  var globalConvPct = d3.sum(countryData, d => d.c)/d3.sum(countryData, d => d.n);
   var trialConvPct = d3.sum(trialData, d => d.c)/d3.sum(trialData, d => d.n);
 
   // globalConv

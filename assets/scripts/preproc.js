@@ -10,26 +10,32 @@
  * Converts the data coming from the .csv into an array of Client
  *
  * @param d    CSV data
+ * @param minDays     Minimum number of days to evaluate conversions
  */
-function getClientList(d){
+function getClientList(d, minDays){
 
   // Initialize a client list
   var clientList = []
 
   // For each client (row of the file), add to clientList
   for(var i = 0; i < d.length; i++){
-    clientList.push(new Client(d[i].clientCode, 
-                              d[i].creationDate, 
-                              d[i].isConverted, 
-                              d[i].conversionDay, 
-                              d[i].didTrial, 
-                              d[i].trialStartDay, 
-                              d[i].trialEndDay, 
-                              d[i].country, 
-                              d[i].companySize, 
-                              d[i].premiumMonth, 
-                              d[i].channel, 
-                              d[i].currentDays))
+
+    // Check if this client has at least the min number of days
+    if(d[i].currentDays >= minDays){
+
+      clientList.push(new Client(d[i].clientCode, 
+                                d[i].creationDate, 
+                                d[i].isConverted, 
+                                d[i].conversionDay, 
+                                d[i].didTrial, 
+                                d[i].trialStartDay, 
+                                d[i].trialEndDay, 
+                                d[i].country, 
+                                d[i].companySize, 
+                                d[i].premiumMonth, 
+                                d[i].channel, 
+                                d[i].currentDays))
+      }
   }
 
   return clientList

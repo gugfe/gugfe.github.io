@@ -11,9 +11,9 @@ function createCustomerJourney(clientList, journeyData, dashboardWidth) {
     var margin = { top: 60, right: 20, bottom: 50, left: 30 };
 
     // Dimensions of the chart
-
     var containerWidth = dashboardWidth / 2;
-    var containerHeight = 400;
+    var containerHeight = 350;
+
     // Choice of canvas
     var canvas = d3.select('#canvasV3').append('svg')
         .attr('height', containerHeight)
@@ -71,7 +71,7 @@ function createCustomerJourney(clientList, journeyData, dashboardWidth) {
     focus.append("rect")
         .attr("x", containerWidth - margin.right - 210)
         .attr("y", margin.top)
-        .attr("height", 70)
+        .attr("height", 60)
         .attr("width", 205)
         .attr("fill", "#333333");
 
@@ -258,7 +258,7 @@ function createCustomerJourney(clientList, journeyData, dashboardWidth) {
         .style("text-anchor", "middle")
         .style("font-size", "13px")
         .style("font-weight", "bold")
-        .text("Typical Client Journey over the first " + journeyData.length + ' days');
+        .text("Customer journeys over the first " + journeyData.length + ' days');
         
     // Add color legend
         var legendColors = [['Freemium','#333333'], ['Trial','#FFECAF'], ['Premium','#FCC205']]

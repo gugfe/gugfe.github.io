@@ -23,15 +23,15 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
       }).reverse();
 
     // Margins of the charts
-    var margin = {top: 60, right: 20, bottom: 40, left: 30};
-    var xMargin = 30;
+    var margin = {top: 60, right: 20, bottom: 60, left: 30};
+    var xMargin = 100;
 
     // Detailed category tag
     var detailedTag = "United States"
 
     // Dimensions of the charts
     var leftChartPct = 0.50
-    var containerHeight = 400
+    var containerHeight = 350
     var leftChartWidth = (dashboardWidth - xMargin) * leftChartPct
     var rightChartWidth = (dashboardWidth - xMargin) * (1 - leftChartPct)
 
@@ -41,8 +41,8 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
     var y_min = 0
     var y_max = 0.22
     var y = d3.scaleLinear()
-    .domain([y_min, y_max])
-    .range([containerHeight,margin.top]);
+        .domain([y_min, y_max])
+        .range([containerHeight - margin.bottom, margin.top]);
 
     // Format function
     var formatPercent = d3.format(".1%")
@@ -50,19 +50,18 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
     //Create conversRate container
     var conversRate = canvas.append('svg')
         .attr('width', dashboardWidth)
-        .attr('height', containerHeight + margin.top + margin.bottom)
-    //var conversRate = d3.select('svg');
+        .attr('height', containerHeight)
 
     // Creation of the svg for the confidence rate chart
     var confidenceRateChart = conversRate.append('svg')
-        .attr('height', containerHeight + margin.top + margin.bottom)
+        .attr('height', containerHeight)
         .attr('width', leftChartWidth)
         .attr('id', 'confidenceRateChart');
 
     // Creation of the svg for the detailed chart
     var detailedChart = conversRate.append('svg')
         .attr('x', leftChartWidth + xMargin)
-        .attr('height', containerHeight + margin.top + margin.bottom)
+        .attr('height', containerHeight)
         .attr('width', rightChartWidth)
         .attr('id', 'detailedChart');
 
@@ -82,7 +81,7 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
     // X Scale
     var x_D = d3.scaleBand()	   
         .domain(newTwoDimData.map(function(d) { return d.nameCat } ) )	    
-        .range([margin.left, rightChartWidth-margin.right])
+        .range([margin.left, rightChartWidth - margin.right])
 
     // Add the count (n)
     g_nCount.selectAll("text")
@@ -91,7 +90,8 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
         .append("text")
         .text(function(d) {return "n = " + d.n;})
         .attr("x", function(d) {return x_D(d.nameCat)+ x_D.bandwidth()/2}) 
-        .attr("y", function(d) { return (1 - d.UB/y_max) * containerHeight - 6})
+     //   .attr("y", function(d) { return (1 - d.UB/y_max) * (containerHeight - margin.bottom) - 6})
+        .attr("y", function(d) { return y(d.UB) - 6})
         .attr("text-anchor", "middle")  
         .attr("font-family", "sans-serif")
         .attr("font-size", "10px")
@@ -103,7 +103,7 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
             .enter()
             .append("text")
             .text(function(d) {return Math.round(d.rate * 1000)/10 + "%";})
-            .attr("x", function(d) {return x_D(d.nameCat)+ x_D.bandwidth()/2 + 15}) 
+            .attr("x", function(d) {return x_D(d.nameCat)+ x_D.bandwidth()/2 + 10}) 
             .attr("y", function(d) { return y(d.rate)} )
             .attr("font-family", "sans-serif")
             .attr("font-size", "12px")
@@ -123,10 +123,11 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
                 return '#FF5971';
             } else {return "#333333"}})
         .attr("x", function(d) {return x_D(d.nameCat)+ x_D.bandwidth()/2 - 1})
-        .attr("y", function(d) { return (1 - d.UB/y_max) * containerHeight })
+      //  .attr("y", function(d) { return (1 - d.UB/y_max) * (containerHeight - margin.bottom) })
+        .attr("y", function(d) { return y(d.UB)})
         .attr("width", 2)
-        .attr("height", function(d) { return (d.UB - d.LB) / y_max * containerHeight });
-
+      //  .attr("height", function(d) { return (d.UB - d.LB) / y_max * (containerHeight - margin.bottom) });
+        .attr("height", function(d) { return y(d.LB) - y(d.UB) });
 
     // Add the circle to show the estimated conversion rates
     detailedChart.selectAll("circle")
@@ -148,16 +149,9 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
             d3.select(this).transition().duration(100).attr('r',12)
             detailedChart.append("text")
             .attr("id", "tooltip")
-            .attr("x", rightChartWidth) // d3.select(this).attr('cx'))
-            .attr("y", 100) //d3.select(this).attr('cy') - 20)
+            .attr("x", rightChartWidth) 
+            .attr("y", 75) 
             .attr("text-anchor", "end")
-            // .attr("text-anchor", function(){
-            //     if(d3.mouse(this)[0] >= confidenceRateChart.attr('width')/2){
-            //         return 'end'
-            //     }else{
-            //         return 'start'
-            //     }
-            // })
             .attr("font-family", "sans-serif")
             .attr("font-size", "11px")
             .attr("font-weight", "bold")
@@ -180,7 +174,7 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
 
     // Axis
     // X Axis
-    g_xAxis.attr("transform", "translate( 0," + containerHeight + ")")
+    g_xAxis.attr("transform", "translate( 0," + (containerHeight - margin.bottom) + ")")
         .call(d3.axisBottom(x_D))
             .selectAll("text")
             .style("text-anchor", "end")
@@ -216,8 +210,8 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
         .enter()
         .append("text")
         .text(function(d) {return Math.round(d.rate * 1000)/10 + "%";})
-        .attr("x", function(d) {return x_CR(d.nameCat) + x_CR.bandwidth()/2 + 15})
-        .attr("y", function(d) { return (1 - d.rate/y_max) * containerHeight + 6} )
+        .attr("x", function(d) {return x_CR(d.nameCat) + x_CR.bandwidth()/2 + 10})
+        .attr("y", function(d) { return (1 - d.rate/y_max) * (containerHeight - margin.bottom)} )
         .attr("font-family", "sans-serif")
         .attr("font-size", "12px")
         .attr("fill", "#333333");
@@ -263,16 +257,9 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
             confidenceRateChart.append("text")
             .attr("id", "tooltip")
             .attr('class', 'd3-tip')
-            .attr("x", leftChartWidth) //d3.select(this).attr('cx'))
-            .attr("y", 100) //d3.select(this).attr('cy')-20)
+            .attr("x", leftChartWidth) 
+            .attr("y", (3.5/10)*containerHeight) 
             .attr("text-anchor", "end")
-            // .attr("text-anchor", function(){
-            //         if(d3.mouse(this)[0] >= confidenceRateChart.attr('width')/2){
-            //             return 'end'
-            //         }else{
-            //             return 'start'
-            //         }
-            //     })
             .attr("font-family", "sans-serif")
             .attr("font-size", "11px")
             .attr("font-weight", "bold")
@@ -301,7 +288,7 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
     // Axis
     // X Axis
     confidenceRateChart.append('g')
-        .attr("transform", "translate( 0," + containerHeight + ")")
+        .attr("transform", "translate( 0," + (containerHeight - margin.bottom) + ")")
         .call(d3.axisBottom(x_CR))
             .selectAll("text")
             .style("text-anchor", "end")
@@ -319,4 +306,41 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
         .style("font-size", "10px")
         .style("font-style", "italic")
         .text("Conversion rate (%)");
+
+    // Add legend
+    var color_legend = ["#FCC205", "#1053FF", "#FF5971"];
+    var text_legend = ["Acquisition channel", "Country", "Company size"];
+
+    var legend = confidenceRateChart.append("g")
+      .attr('class', 'legend')
+      .attr('transform', 'translate(' + (leftChartWidth - margin.left) + ', ' + ((1.5/10)*containerHeight) + ')');
+    
+    legend.selectAll('rect')
+      .data(color_legend)
+      .enter()
+      .append('rect')
+        .attr('x', 0)
+        .attr('y', function(d, i){
+            return i * 18;
+        })
+        .attr('width', 12)
+        .attr('height', 12)
+        .attr('fill', function(d, i){
+            return color_legend[i];
+        });
+  
+    legend.selectAll('text')
+        .data(text_legend)
+        .enter()
+        .append('text')
+            .attr('x', -5)
+            .attr('y', function(d, i){
+                return i * 18 + 3;
+            })
+            .text(function(d, i){
+            return text_legend[i];
+            })
+            .attr('text-anchor', 'end')
+            .attr('font-size', '10px')
+            .attr('alignment-baseline', 'hanging');
 }

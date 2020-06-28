@@ -26,9 +26,9 @@ function updateDetailedChart(twoDimData, detailedTag, g_xAxis, g_title, detailed
     // X Scale
     var x_D = d3.scaleBand()	   
         .domain(newTwoDimData.map(function(d) { return d.nameCat } ) )	    
-        .range([margin.left, rightChartWidth-margin.right]);
+        .range([margin.left, rightChartWidth - margin.right]);
 
-    g_xAxis.attr("transform", "translate( 0," + containerHeight + ")")
+    g_xAxis.attr("transform", "translate( 0," + (containerHeight - margin.bottom) + ")")
         .transition(t)
         .call(d3.axisBottom(x_D))
             .selectAll("text")
@@ -51,7 +51,7 @@ function updateDetailedChart(twoDimData, detailedTag, g_xAxis, g_title, detailed
             .data(newTwoDimData)
             .transition(t)
             .text(function(d) {return Math.round(d.rate * 1000)/10 + "%";})
-            .attr("x", function(d) {return x_D(d.nameCat)+ x_D.bandwidth()/2 + 15}) 
+            .attr("x", function(d) {return x_D(d.nameCat)+ x_D.bandwidth()/2 + 10}) 
             .attr("y", function(d) { return yScale(d.rate)} )
             .attr("font-family", "sans-serif")
             .attr("font-size", "12px")

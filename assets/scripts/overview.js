@@ -101,7 +101,7 @@ function createOverview(clientList, dashboardWidth, countryData, sizeData) {
 
     // Text overview
     textoverview.append('text')
-        .text('This dashboard presents information around networks conversion, using data from Jan to May 2020. The top section presents high-level statistics about networks and monthly activity, while the bottom section includes advanced analysis of different topics.')
+        .text('This dashboard presents information around networks conversion, using data from January to March 2020. The top section presents high-level statistics about networks and monthly activity, while the bottom section includes advanced analysis of different topics.')
         .attr('x', 0)
         .attr('y', 0)
         .attr('text-anchor', 'start')
@@ -182,6 +182,7 @@ function createOverview(clientList, dashboardWidth, countryData, sizeData) {
         .attr('y', 15)
         .attr("text-anchor", "start")
         .attr('font-size', 12)
+
     // Call functions to create bar charts
     createBarChart(netByCompany, sizeData, '#333333', formatComma)
     createBarChart(netByCountry, countryData, '#333333', formatComma)
@@ -225,11 +226,11 @@ function createBarChart(container, data, graphColor, formatComma) {
         .append('text')
         .text(d => formatComma(d.n))
         .attr("x", d => x(0) + 100)
-        .attr("y", d => y(d.nameCat) + y.bandwidth() - 2)
+        .attr("y", d => y(d.nameCat) + y.bandwidth() - 0.5)
         .transition()
         .duration(800)
         .attr("x", d => x(d.n) + axis_margin + 8)
-        .attr("y", d => y(d.nameCat) + y.bandwidth() - 2)
+        .attr("y", d => y(d.nameCat) + y.bandwidth() - 0.5)
 
         .attr("font-size", 10)
         .attr("font-weight", "normal")
