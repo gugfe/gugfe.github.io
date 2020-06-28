@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8">
+    <title>INF8808 - Projet équipe 7</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+  </head>
+  <body>
+    <h1>NETWORKS CONVERSION DASHBOARD</h1>
+    <div class='overview'></div>
+    <div class="tab">
+      <button class="tablinks active" onclick="openTab(event, 'V1tab')">Conversion Rates</button>
+      <button class="tablinks" onclick="openTab(event, 'V2tab')">Trial Analysis</button>
+      <button class="tablinks" onclick="openTab(event, 'V3tab')">Customer Journey</button>
+    </div>
+
+    <div id="V1tab" class="tabcontent">
+      <p>The following visualization offers an insight into network conversion rates.<br>
+      (click on the circles on the left chart to get a detailed analysis on the right chart)</p>
+      <div id="canvasV1"></div>
+    </div>
+
+    <div id="V2tab" class="tabcontent">
+      <p>The following visualization offers an insight into trials and aims to answer these questions: <br>
+      -> Are networks experiencing the trial converting more often than others? <br> -> Does the starting time of the trial influence the conversion rate?</p>
+      <div id="canvasV2"></div>
+    </div>
+
+    <div id="V3tab" class="tabcontent">
+      <p>The following visualization offers an insight into Customer Journey</p>
+      <div id="canvasV3"></div>
+    </div>
+
+    <script type="text/javascript" src="assets/libs/d3.js"></script>
+    <script type="text/javascript" src="assets/libs/d3-tip.js"></script>
+    <script type="text/javascript" src="assets/scripts/classes.js"></script> 
+    <script type="text/javascript" src="assets/scripts/filtering_function.js"></script> 
+    <script type="text/javascript" src="assets/scripts/conversion_rates.js"></script>
+    <script type="text/javascript" src="assets/scripts/conversion_rates_update.js"></script>
+    <script type="text/javascript" src="assets/scripts/customer_journey.js"></script>
+    <script type="text/javascript" src="assets/scripts/preproc.js"></script>
+    <script type="text/javascript" src="assets/scripts/trial_analysis.js"></script>
+    <script type="text/javascript" src="assets/scripts/overview.js"></script>
+    <script type="text/javascript" src="assets/scripts/main.js"></script>
+
+    <script>
+      function openTab(evt, tabName) {
+
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+          tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+          tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,196 @@
+/*
+Color palette list
+Primary:
+SuperBlue #1053FF
+Vegan Butter #FCC205
+Punch #FF5971
+Dark Denim #0000B1
+Dell black #333333
+White #FFFFFF
+Secondary:
+Light Blue #F3F6FF
+Margarine #FFeCAF
+Bismuth #FFC7D4
+Grey #E7E7E7
+*/
+/***** General style *****/
+body {
+  display: table;
+  margin: 20px auto auto;
+  font-family: 'Verdana';
+
+}
+
+h1 {
+  font-size: 1.2em;
+  margin: 15px 0 20px 0;
+  text-align: center;
+  /*text-anchor:middle ;*/
+}
+
+.row {
+  display: flex;
+}
+/* Overview parameters */
+.overview {
+  font-weight: bold;
+  text-anchor:middle ;
+}
+.row > .col {
+  flex: 1;
+}
+
+.label {
+  text-align: left;
+  line-height: 24px;
+  flex-basis: 150px;
+}
+
+select {
+  width: 100%;
+}
+
+.label,
+select {
+  padding: 5px;
+  font-size: 1.1em;
+}
+/* format text paragraphs */
+p {
+  width: 1200px;
+}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #F3F6FF;
+  }
+
+  /* Style the buttons inside the tab */
+  .tab button {
+  background-color: inherit;
+  float: none;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 8px 10px;
+  transition: 0s;
+  font-size: 16px;
+  }
+
+  /* Change background color of buttons on hover */
+  .tab button:hover {
+  background-color: lightslategray;
+  }
+
+  /* Create an active/current tablink class */
+  .tab button.active {
+  color: white;
+  background-color: #0000B1;
+  }
+
+  /* Style the tab content */
+  .tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+
+  }
+  .svg-container {
+    display: inline-block;
+    position: relative;
+    width: 100%;
+    padding-bottom: 100%; /* aspect ratio */
+    vertical-align: top;
+    overflow: hidden;
+  }
+  .svg-content-responsive {
+    display: inline-block;
+    position: absolute;
+    top: 10px;
+    left: 0;
+  }
+  
+  svg .rect {
+    fill: #F3F6FF;
+    stroke: #F3F6FF;
+    stroke-width: 5px;
+  }
+/***** SVG *****/
+svg {
+  background-color: white;
+}
+
+rect {
+  fill-opacity: 1;
+}
+
+rect:hover {
+  fill-opacity: 1;
+}
+
+.axis {
+  shape-rendering: crispEdges
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.y.axis path {
+  fill: none;
+  stroke: black;
+  shape-rendering: crispEdges;
+}
+
+.group text {
+  fill: black;
+}
+/***** Tooltip *****/
+
+.d3-tip {
+  line-height: 1;
+  padding: 12px;
+  border-radius: 2px;
+  color: black;
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.d3-tip:after {
+  display: inline;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: -1px 0 0 0;
+  box-sizing: border-box;
+  font-size: 10px;
+  line-height: 1;
+  color: rgba(0, 0, 0, 0.8);
+  content: "\25BC";
+  position: absolute;
+  text-align: center;
+}
+/***** Focus for customer journey *****/
+.focus {
+  opacity: 1;
+}
+
+.focus circle {
+  fill: #333333;
+  stroke: #333333;
+}
+
+.focus line {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+  stroke-dasharray: 3 3;
+}
+.focus text {
+  font-weight: bold;
+}
