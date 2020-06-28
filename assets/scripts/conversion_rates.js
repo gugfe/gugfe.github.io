@@ -30,7 +30,7 @@ function createConversionRates(channelData, countryData, sizeData, countrychanne
     var detailedTag = "United States"
 
     // Dimensions of the charts
-    var leftChartPct = 0.25
+    var leftChartPct = 0.50
     var containerHeight = 400
     var leftChartWidth = (dashboardWidth - xMargin) * leftChartPct
     var rightChartWidth = (dashboardWidth - xMargin) * (1 - leftChartPct)
