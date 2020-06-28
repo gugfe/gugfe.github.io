@@ -159,6 +159,22 @@ function createTrialAnalysis (trialData, countryData, dashboardWidth){
         .attr("width", x.bandwidth()/3)
         .attr("height", d => containerHeight - margin.bottom - y(d.n))
         .style("fill", "#E7E7E7")
+        .on("mouseover", function(d) {  
+          trialGraph.append("text")
+          .attr("id", "tooltip")
+          .attr('class', 'd3-tip')
+          .attr("x", bigcontainerWidth - margin.left) 
+          .attr("y", (2/10)*containerHeight) 
+          .attr("text-anchor", "end")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "11px")
+          .attr("font-weight", "bold")
+          .attr("fill", "black")
+          .text("# of trials: " + d.n);
+          })
+      .on("mouseout", function() {
+          d3.select("#tooltip").remove();
+      })
     
     trialGraph.selectAll(".bar.c")
       .data(trialData)
@@ -170,6 +186,22 @@ function createTrialAnalysis (trialData, countryData, dashboardWidth){
         .attr("width", x.bandwidth()/3)
         .attr("height", d => containerHeight - margin.bottom - y(d.c))
         .style("fill", "#333333") 
+        .on("mouseover", function(d) {  
+          trialGraph.append("text")
+          .attr("id", "tooltip")
+          .attr('class', 'd3-tip')
+          .attr("x", bigcontainerWidth - margin.left) 
+          .attr("y", (2/10)*containerHeight) 
+          .attr("text-anchor", "end")
+          .attr("font-family", "sans-serif")
+          .attr("font-size", "11px")
+          .attr("font-weight", "bold")
+          .attr("fill", "black")
+          .text("# of conversions from trial: " + d.c);
+          })
+      .on("mouseout", function() {
+          d3.select("#tooltip").remove();
+      })
 
     trialGraph.append("path")
       .datum(trialData)
