@@ -53,7 +53,7 @@ function createTrialAnalysis (trialData, countryData, dashboardWidth){
   var trialGraph = d3.select('#trialGraph'); 
 
   // Fill containers
-  var globalConvPct = d3.sum(countryData, d => d.c)/d3.sum(countryData, d => d.n);
+  var globalConvPct = d3.sum(countryData, d => d.c)/d3.sum(countryData, d => d.n)*2;
   var trialConvPct = d3.sum(trialData, d => d.c)/d3.sum(trialData, d => d.n);
 
   // globalConv
