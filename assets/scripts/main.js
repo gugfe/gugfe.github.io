@@ -37,6 +37,7 @@
 
     // Open a tab on startup
     var defaultTab = 'V1tab'
+    var event = new Event('ev');
     openTab(event, defaultTab)
   })
 

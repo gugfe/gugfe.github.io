@@ -56,7 +56,9 @@
         }
 
         document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
+        if(evt.currentTarget != null){
+            evt.currentTarget.className += " active";
+        }
       }
     </script>
   </body>
